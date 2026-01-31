@@ -86,8 +86,13 @@
     </div>
 
     <script>
-        if (window.opener && window.opener.document.body.classList.contains('dark')) {
-            document.body.classList.add('dark');
+        // Wrapped in try-catch to prevent SecurityError in local file environments
+        try {
+            if (window.opener && window.opener.document.body.classList.contains('dark')) {
+                document.body.classList.add('dark');
+            }
+        } catch (e) {
+            console.warn("Could not sync theme with opener:", e.message);
         }
 
         var DATA_URL = 'https://raw.githubusercontent.com/Bowserinator/Periodic-Table-JSON/master/PeriodicTableJSON.json';
