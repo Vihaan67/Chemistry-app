@@ -1,8 +1,8 @@
 // script.js
 // Fetch periodic table data from a public JSON source
 const DATA_URL = 'https://raw.githubusercontent.com/Bowserinator/Periodic-Table-JSON/master/PeriodicTableJSON.json';
-// API key for future quiz integration (currently unused)
-const QUIZ_API_KEY = 'AIzaSyBF8Vs_3be_g34AWbhPvQurck6yPDUK548';
+// API key for Gemini AI
+const GEMINI_API_KEY = 'AIzaSyBhkY6jPr97BeOviTVjExk6IEzOOTZ8XrQ';
 
 let elements = [];
 let darkMode = false;
@@ -48,14 +48,14 @@ function buildTable() {
         const div = document.createElement('div');
         div.className = 'tile';
         div.dataset.symbol = el.symbol;
-        // CSS grid placement (1‑based)
+        // CSS grid placement (1-based)
         div.style.gridColumn = el.xpos;
         div.style.gridRow = el.ypos;
         div.innerHTML = `
-      <div class="number">${el.number}</div>
-      <div class="symbol">${el.symbol}</div>
-      <div class="name">${el.name}</div>
-    `;
+            <div class="number">${el.number}</div>
+            <div class="symbol">${el.symbol}</div>
+            <div class="name">${el.name}</div>
+        `;
         const category = el.category ? el.category.toString() : '';
         const colourMap = {
             'alkali metal': '#ff6666',
@@ -86,8 +86,6 @@ function buildTable() {
     });
     console.log('Table built');
 }
-
-
 
 function attachControls() {
     const colorSelect = document.getElementById('colorSelect');
@@ -136,7 +134,7 @@ function showDetails(el) {
     document.getElementById('elemPeriod').textContent = el.ypos || 'N/A';
     document.getElementById('elemElectron').textContent = el.electron_configuration || 'N/A';
     document.getElementById('elemState').textContent = el.phase || 'N/A';
-    // Use the image URL from the dataset if available, otherwise fallback
+
     const imgUrl = el.image && el.image.url ? el.image.url : `https://images-of-elements.com/${el.symbol.toLowerCase()}.png`;
     document.getElementById('elemImage').src = imgUrl;
     document.getElementById('elementDetails').classList.remove('hidden');
@@ -152,7 +150,8 @@ let currentQuiz = {
 };
 
 function startQuiz() {
-    const element = elements.find(e => e.symbol === document.getElementById('elemSymbol').textContent);
+    const symbolStr = document.getElementById('elemSymbol').textContent;
+    const element = elements.find(e => e.symbol === symbolStr);
     if (!element) return;
 
     const difficulty = document.getElementById('quizDifficulty').value;
@@ -177,7 +176,6 @@ function startQuiz() {
         { q: `Boiling point of ${element.name}?`, a: element.boil, key: 'boil', level: 'hard' }
     ];
 
-    // Filter by difficulty: Easy gets easy, Medium gets easy+medium, Hard gets all
     const filteredTemplates = allTemplates.filter(t => {
         if (difficulty === 'easy') return t.level === 'easy';
         if (difficulty === 'medium') return t.level === 'easy' || t.level === 'medium';
@@ -190,7 +188,6 @@ function startQuiz() {
     for (let i = 0; i < numQuestions; i++) {
         const t = shuffled[i];
         const fake = [];
-        // Generate fakes from other elements
         while (fake.length < 15) {
             const rand = elements[Math.floor(Math.random() * elements.length)];
             const val = rand[t.key];
@@ -246,5 +243,4 @@ function showResults() {
     `;
 }
 
-// Initialize the app
 init();
