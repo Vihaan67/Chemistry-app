@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Periodic Table</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Interactive Periodic Table</h1>
+        <div class="controls">
+            <label for="colorSelect">Background:</label>
+            <select id="colorSelect">
+                <option value="#ff6666">Red</option>
+                <option value="#ffcc66">Orange</option>
+                <option value="#ffff66">Yellow</option>
+                <option value="#66ff66">Green</option>
+                <option value="#66ffff">Cyan</option>
+                <option value="#6666ff">Blue</option>
+                <option value="#ff66ff">Magenta</option>
+                <option value="#ff99ff">Pink</option>
+            </select>
+            <button id="darkModeBtn">Dark Mode</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="periodicTable" class="grid"></section>
+        <section id="elementDetails" class="details hidden">
+            <button id="closeDetails" class="close">✖</button>
+            <h2 id="elemName"></h2>
+            <p><strong>Symbol:</strong> <span id="elemSymbol"></span></p>
+            <p><strong>Atomic Number:</strong> <span id="elemNumber"></span></p>
+            <p><strong>Atomic Mass:</strong> <span id="elemMass"></span></p>
+            <p><strong>Category:</strong> <span id="elemCategory"></span></p>
+            <p><strong>Group:</strong> <span id="elemGroup"></span></p>
+            <p><strong>Period:</strong> <span id="elemPeriod"></span></p>
+            <p><strong>Electron Configuration:</strong> <span id="elemElectron"></span></p>
+            <p><strong>State at Room Temp:</strong> <span id="elemState"></span></p>
+            <img id="elemImage" src="" alt="Element image" class="elem-image" />
+            <div style="margin: 1rem 0; display: flex; align-items: center; gap: 0.5rem;">
+                <label for="quizDifficulty">Difficulty:</label>
+                <select id="quizDifficulty" style="padding: 0.3rem; border-radius: 8px;">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            <button id="readMoreBtn">Read More</button>
+            <button id="startQuizBtn">Start Quiz</button>
+        </section>
+
+        <!-- Quiz Overlay -->
+        <section id="quizOverlay" class="quiz-overlay hidden">
+            <div class="quiz-container">
+                <button id="closeQuiz" class="close">✖</button>
+                <div id="quizContent">
+                    <!-- Quiz elements will be injected here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <audio id="clickSound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"
+        preload="auto"></audio>
+    <audio id="correctSound" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3"
+        preload="auto"></audio>
+    <audio id="wrongSound" src="https://assets.mixkit.co/active_storage/sfx/2959/2959-preview.mp3"
+        preload="auto"></audio>
+    <script src="script.js"></script>
+</body>
+
+</html>
