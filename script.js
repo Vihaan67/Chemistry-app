@@ -1,8 +1,8 @@
 // script.js
 // Fetch periodic table data from a public JSON source
 const DATA_URL = 'https://raw.githubusercontent.com/Bowserinator/Periodic-Table-JSON/master/PeriodicTableJSON.json';
-// API key for Gemini AI
-const GEMINI_API_KEY = 'AIzaSyBhkY6jPr97BeOviTVjExk6IEzOOTZ8XrQ';
+// API key for Gemini AI (Updated per user request)
+const GEMINI_API_KEY = 'AIzaSyD9nB2z-PYsJLWnsna_fDdMPz87rcCNU1Q';
 
 let elements = [];
 let darkMode = false;
@@ -58,26 +58,34 @@ function buildTable() {
         `;
         const category = el.category ? el.category.toString() : '';
         const colourMap = {
-            'alkali metal': '#ff6666',
-            'alkaline earth metal': '#ffcc66',
-            'transition metal': '#66ffff',
-            'post-transition metal': '#66ff66',
-            'metalloid': '#ff66ff',
-            'nonmetal': '#ffff66',
-            'halogen': '#66ffff',
-            'noble gas': '#ff99ff',
-            'lanthanide': '#ffcc66',
-            'actinide': '#ff6666'
+            'alkali metal': '#ef4444',
+            'alkaline earth metal': '#f59e0b',
+            'transition metal': '#f87171',
+            'post-transition metal': '#10b981',
+            'metalloid': '#3b82f6',
+            'diatomic nonmetal': '#8b5cf6',
+            'polyatomic nonmetal': '#a855f7',
+            'halogen': '#06b6d4',
+            'noble gas': '#ec4899',
+            'lanthanide': '#fb923c',
+            'actinide': '#f472b6',
+            'unknown, probably transition metal': '#94a3b8',
+            'unknown, probably post-transition metal': '#94a3b8',
+            'unknown, probably metalloid': '#94a3b8',
+            'unknown, predicted to be noble gas': '#94a3b8',
+            'unknown, but predicted to be an alkali metal': '#94a3b8'
         };
-        const defaultCol = category && colourMap[category.toLowerCase()] ? colourMap[category.toLowerCase()] : '#ddd';
+        const defaultCol = category && colourMap[category.toLowerCase()] ? colourMap[category.toLowerCase()] : '#94a3b8';
         div.style.backgroundColor = defaultCol;
 
-        // Dynamic Contrast Logic: Ensure text is visible on any background
+        // Dynamic Contrast Logic
         const [r, g, b] = hexToRgb(defaultCol);
         const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-        div.style.color = brightness > 128 ? '#0f172a' : '#f1f5f9';
-        // Staggered animation delay
-        div.style.animationDelay = `${el.number * 0.01}s`;
+        div.style.color = brightness > 128 ? '#0f172a' : '#ffffff';
+
+        // Optimized staggered animation delay (max 1.5s total)
+        const delay = Math.min(el.number * 0.015, 1.5);
+        div.style.animationDelay = `${delay}s`;
         div.addEventListener('click', () => {
             document.getElementById('clickSound').play();
             showDetails(el);
