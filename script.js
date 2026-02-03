@@ -2,7 +2,7 @@
 // Fetch periodic table data from a public JSON source
 const DATA_URL = 'https://raw.githubusercontent.com/Bowserinator/Periodic-Table-JSON/master/PeriodicTableJSON.json';
 // API key for Gemini AI (Updated per user request)
-const GEMINI_API_KEY = 'AIzaSyD9nB2z-PYsJLWnsna_fDdMPz87rcCNU1Q';
+const GEMINI_API_KEY = 'AIzaSyASFyDx4xz6rekRw5mkmvtH1M0h2Z7ai6s';
 
 let elements = [];
 let darkMode = false;
